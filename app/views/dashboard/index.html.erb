@@ -1,0 +1,166 @@
+<h1>Dashboard</h1>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <h3><%= @stats[:total_projects] %></h3>
+    <p>Proyectos Totales</p>
+  </div>
+  
+  <div class="stat-card">
+    <h3><%= @stats[:active_integrations] %></h3>
+    <p>Integraciones Activas</p>
+  </div>
+  
+  <div class="stat-card">
+    <h3><%= @stats[:failed_syncs] %></h3>
+    <p>Sincronizaciones Fallidas</p>
+  </div>
+</div>
+
+<div class="dashboard-sections">
+  <div class="section">
+    <h2>Proyectos Recientes</h2>
+    <% if @projects.any? %>
+      <div class="project-list">
+        <% @projects.each do |project| %>
+          <div class="project-card">
+            <h3><%= link_to project.name, project_path(project) %></h3>
+            <p><%= project.description %></p>
+            <div class="project-meta">
+              <span class="badge <%= project.active? ? 'badge-success' : 'badge-danger' %>">
+                <%= project.active? ? 'Activo' : 'Inactivo' %>
+              </span>
+              <span class="integration-count">
+                <%= pluralize(project.active_integrations.count, 'integración', 'integraciones') %>
+              </span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <p><%= link_to "Ver todos los proyectos", projects_path, class: "btn btn-primary" %></p>
+    <% else %>
+      <p>No tienes acceso a ningún proyecto.</p>
+      <% if current_user.can_manage_projects? %>
+        <p><%= link_to "Crear nuevo proyecto", new_project_path, class: "btn btn-primary" %></p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="section">
+    <h2>Integraciones Recientes</h2>
+    <% if @recent_integrations.any? %>
+      <div class="integration-list">
+        <% @recent_integrations.each do |integration| %>
+          <div class="integration-item">
+            <div class="integration-info">
+              <strong><%= integration.name %></strong>
+              <span class="integration-type"><%= integration.integration_type.upcase %></span>
+            </div>
+            <div class="integration-status">
+              <span class="badge badge-<%= integration.sync_status %>">
+                <%= integration.sync_status.humanize %>
+              </span>
+              <% if integration.last_sync_at %>
+                <small>Última sincronización: <%= time_ago_in_words(integration.last_sync_at) %> ago</small>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>No hay integraciones configuradas.</p>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e1e5e9;
+    text-align: center;
+  }
+  
+  .stat-card h3 {
+    font-size: 2rem;
+    margin: 0;
+    color: #2c3e50;
+  }
+  
+  .dashboard-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e1e5e9;
+  }
+  
+  .project-card, .integration-item {
+    border: 1px solid #e1e5e9;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+  
+  .badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+  
+  .badge-success { background: #d4edda; color: #155724; }
+  .badge-danger { background: #f8d7da; color: #721c24; }
+  .badge-pending { background: #fff3cd; color: #856404; }
+  .badge-syncing { background: #cce7ff; color: #004085; }
+  .badge-completed { background: #d4edda; color: #155724; }
+  .badge-failed { background: #f8d7da; color: #721c24; }
+  
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .btn-primary {
+    background: #007bff;
+    color: white;
+  }
+  
+  .integration-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .integration-type {
+    background: #6c757d;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+  }
+</style>
