@@ -53,10 +53,10 @@ end
 
 # Admin User para ActiveAdmin
 AdminUser.find_or_create_by!(email: 'admin@example.com') do |admin|
-  admin.password = 'password'
-  admin.password_confirmation = 'password'
+  admin.password = 'password123'
+  admin.password_confirmation = 'password123'
 end
-puts '  ✓ AdminUser for ActiveAdmin: admin@example.com / password'
+puts '  ✓ AdminUser for ActiveAdmin: admin@example.com / password123'
 
 # === PROYECTOS ===
 puts "\n📁 Creando proyectos..."
@@ -258,7 +258,7 @@ puts "\n🔑 Credenciales de acceso:"
 puts '  Superadmin: admin@example.com / password123'
 puts '  Admin:      manager@example.com / password123'
 puts '  User:       user1@example.com / password123'
-puts '  ActiveAdmin: admin@example.com / password'
+puts '  ActiveAdmin: admin@example.com / password123'
 
 puts "\n🌐 URLs:"
 puts '  App:        http://localhost:3000'

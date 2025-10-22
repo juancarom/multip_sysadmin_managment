@@ -14,5 +14,11 @@ class DashboardController < ApplicationController
                                .where(project: current_user.accessible_projects, sync_status: :failed)
                                .count
     }
+
+    # Renderizar JSON si es una petición AJAX/API
+    respond_to do |format|
+      format.html
+      format.json { render json: { projects: @projects, integrations: @recent_integrations, stats: @stats } }
+    end
   end
 end

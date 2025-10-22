@@ -167,7 +167,7 @@ GEM
       net-http (>= 0.5.0)
     faraday-retry (2.3.2)
       faraday (~> 2.0)
-    ffi (1.17.2-arm64-darwin)
+    ffi (1.17.2)
     formtastic (5.0.0)
       actionpack (>= 6.0.0)
     formtastic_i18n (0.7.0)
@@ -256,6 +256,8 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
+    nokogiri (1.17.2-aarch64-linux)
+      racc (~> 1.4)
     nokogiri (1.17.2-arm64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
@@ -263,6 +265,7 @@ GEM
     parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
+    pg (1.6.2-aarch64-linux)
     pg (1.6.2-arm64-darwin)
     pp (0.6.3)
       prettyprint
@@ -455,6 +458,7 @@ GEM
     zeitwerk (2.6.18)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-23
 
 DEPENDENCIES

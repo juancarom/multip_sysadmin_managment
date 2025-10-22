@@ -28,10 +28,10 @@ class UserProject < ApplicationRecord
   private
 
   def sync_user_added_to_integrations
-    UserProjectSyncJob.perform_async(id, 'add')
+    UserProjectSyncJob.perform_later(id, 'add')
   end
 
   def sync_user_removed_from_integrations
-    UserProjectSyncJob.perform_async(id, 'remove')
+    UserProjectSyncJob.perform_later(id, 'remove')
   end
 end
