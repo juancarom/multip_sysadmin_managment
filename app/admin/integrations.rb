@@ -3,9 +3,9 @@ ActiveAdmin.register Integration do
 
   scope :all, default: true
   scope :active
-  scope("Jira") { |scope| scope.where(integration_type: 'jira') }
-  scope("GitHub") { |scope| scope.where(integration_type: 'github') }
-  scope("GitLab") { |scope| scope.where(integration_type: 'gitlab') }
+  scope('Jira') { |scope| scope.where(integration_type: 'jira') }
+  scope('GitHub') { |scope| scope.where(integration_type: 'github') }
+  scope('GitLab') { |scope| scope.where(integration_type: 'gitlab') }
 
   index do
     selectable_column
@@ -24,11 +24,14 @@ ActiveAdmin.register Integration do
       status_tag integration.sync_status, class: integration.sync_status
     end
     column :last_sync_at do |integration|
-      integration.last_sync_at&.strftime("%d/%m/%Y %H:%M") || 'Nunca'
+      integration.last_sync_at&.strftime('%d/%m/%Y %H:%M') || 'Nunca'
     end
     actions defaults: true do |integration|
-      item "Toggle", toggle_admin_integration_path(integration), method: :patch, class: 'member_link'
-      item "Sync", sync_admin_integration_path(integration), method: :post, class: 'member_link' if integration.can_sync?
+      item 'Toggle', toggle_admin_integration_path(integration), method: :patch, class: 'member_link'
+      if integration.can_sync?
+        item 'Sync', sync_admin_integration_path(integration), method: :post,
+                                                               class: 'member_link'
+      end
     end
   end
 
@@ -44,12 +47,12 @@ ActiveAdmin.register Integration do
       f.input :project, as: :select, collection: Project.all.map { |p| [p.name, p.id] }
       f.input :integration_type, as: :select, collection: Integration::INTEGRATION_TYPES
       f.input :name
-      f.input :active, as: :boolean, 
-              hint: 'Activa/desactiva esta integración. Solo las integraciones activas se sincronizan.'
-      f.input :settings, as: :text, input_html: { rows: 8 }, 
-              hint: 'JSON format. Ejemplo Jira: {"site_domain": "example.atlassian.net", "default_project_key": "PROJ"}'
-      f.input :credentials, as: :text, input_html: { rows: 8 }, 
-              hint: 'JSON format con credenciales. Ejemplo: {"access_token": "token_aqui"}. Se encriptará automáticamente.'
+      f.input :active, as: :boolean,
+                       hint: 'Activa/desactiva esta integración. Solo las integraciones activas se sincronizan.'
+      f.input :settings, as: :text, input_html: { rows: 8 },
+                         hint: 'JSON format. Ejemplo Jira: {"site_domain": "example.atlassian.net", "default_project_key": "PROJ"}'
+      f.input :credentials, as: :text, input_html: { rows: 8 },
+                            hint: 'JSON format con credenciales. Ejemplo: {"access_token": "token_aqui"}. Se encriptará automáticamente.'
     end
     f.actions
   end
@@ -78,33 +81,34 @@ ActiveAdmin.register Integration do
         pre JSON.pretty_generate(integration.settings || {})
       end
       row :has_credentials do |integration|
-        status_tag integration.credentials.present? ? 'Sí' : 'No', 
+        status_tag integration.credentials.present? ? 'Sí' : 'No',
                    class: (integration.credentials.present? ? 'yes' : 'no')
       end
       row :created_at
       row :updated_at
     end
 
-    panel "Acciones" do
+    panel 'Acciones' do
       div class: 'action_items' do
         if resource.active?
           span link_to('Desactivar', toggle_admin_integration_path(resource), method: :patch, class: 'button')
         else
           span link_to('Activar', toggle_admin_integration_path(resource), method: :patch, class: 'button')
         end
-        
+
         if resource.can_sync?
           span link_to('Sincronizar Ahora', sync_admin_integration_path(resource), method: :post, class: 'button')
         end
 
         if resource.credentials.present?
-          span link_to('Probar Conexión', test_connection_admin_integration_path(resource), method: :post, class: 'button')
+          span link_to('Probar Conexión', test_connection_admin_integration_path(resource), method: :post,
+                                                                                            class: 'button')
         end
       end
     end
 
     if resource.settings.present? && resource.settings['last_sync_data'].present?
-      panel "Última Sincronización" do
+      panel 'Última Sincronización' do
         pre JSON.pretty_generate(resource.settings['last_sync_data'])
       end
     end
@@ -113,7 +117,8 @@ ActiveAdmin.register Integration do
   member_action :toggle, method: :patch do
     service = IntegrationService.new(resource)
     if service.toggle_active!
-      redirect_to admin_integration_path(resource), notice: "Integración #{resource.active? ? 'activada' : 'desactivada'}"
+      redirect_to admin_integration_path(resource),
+                  notice: "Integración #{resource.active? ? 'activada' : 'desactivada'}"
     else
       redirect_to admin_integration_path(resource), alert: 'Error al cambiar estado'
     end

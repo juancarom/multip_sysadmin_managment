@@ -44,16 +44,16 @@ ActiveAdmin.register User do
       row :updated_at
     end
 
-    panel "Proyectos" do
+    panel 'Proyectos' do
       table_for user.user_projects.includes(:project) do
-        column "Proyecto" do |up|
+        column 'Proyecto' do |up|
           link_to up.project.name, admin_project_path(up.project)
         end
-        column "Rol" do |up|
+        column 'Rol' do |up|
           status_tag up.role
         end
-        column "Agregado" do |up|
-          up.created_at.strftime("%d/%m/%Y")
+        column 'Agregado' do |up|
+          up.created_at.strftime('%d/%m/%Y')
         end
       end
     end

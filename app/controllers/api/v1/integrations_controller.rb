@@ -2,7 +2,7 @@ module Api
   module V1
     class IntegrationsController < BaseController
       before_action :set_project
-      before_action :set_integration, only: [:show, :update, :destroy, :toggle, :sync]
+      before_action :set_integration, only: %i[show update destroy toggle sync]
 
       def index
         @integrations = @project.integrations

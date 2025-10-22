@@ -30,8 +30,8 @@ ActiveAdmin.register Project do
       f.input :name
       f.input :description
       f.input :active
-      f.input :settings, as: :text, input_html: { rows: 5 }, 
-              hint: 'JSON format: {"key": "value"}'
+      f.input :settings, as: :text, input_html: { rows: 5 },
+                         hint: 'JSON format: {"key": "value"}'
     end
     f.actions
   end
@@ -52,38 +52,38 @@ ActiveAdmin.register Project do
       row :updated_at
     end
 
-    panel "Integraciones" do
+    panel 'Integraciones' do
       table_for project.integrations do
-        column "Tipo" do |integration|
+        column 'Tipo' do |integration|
           status_tag integration.integration_type
         end
-        column "Nombre" do |integration|
+        column 'Nombre' do |integration|
           link_to integration.name, admin_integration_path(integration)
         end
-        column "Estado" do |integration|
+        column 'Estado' do |integration|
           status_tag integration.active ? 'Activa' : 'Inactiva', class: (integration.active ? 'yes' : 'no')
         end
-        column "Sincronización" do |integration|
+        column 'Sincronización' do |integration|
           status_tag integration.sync_status
         end
-        column "Última sync" do |integration|
-          integration.last_sync_at&.strftime("%d/%m/%Y %H:%M") || 'Nunca'
+        column 'Última sync' do |integration|
+          integration.last_sync_at&.strftime('%d/%m/%Y %H:%M') || 'Nunca'
         end
       end
     end
 
-    panel "Usuarios" do
+    panel 'Usuarios' do
       table_for project.user_projects.includes(:user) do
-        column "Usuario" do |up|
+        column 'Usuario' do |up|
           link_to up.user.name, admin_user_path(up.user)
         end
-        column "Email" do |up|
+        column 'Email' do |up|
           up.user.email
         end
-        column "Rol en Proyecto" do |up|
+        column 'Rol en Proyecto' do |up|
           status_tag up.role
         end
-        column "Rol Global" do |up|
+        column 'Rol Global' do |up|
           status_tag up.user.role
         end
       end

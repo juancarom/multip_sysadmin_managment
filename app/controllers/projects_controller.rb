@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: %i[show edit update destroy]
+  before_action :authorize_project, only: %i[show edit update destroy]
 
   def index
     @projects = policy_scope(Project).includes(:integrations, :users).page(params[:page])
@@ -22,9 +22,7 @@ class ProjectsController < ApplicationController
 
     if @project.save
       # Agregar al usuario actual como admin del proyecto si no es superadmin
-      unless current_user.superadmin?
-        @project.user_projects.create!(user: current_user, role: :admin)
-      end
+      @project.user_projects.create!(user: current_user, role: :admin) unless current_user.superadmin?
 
       redirect_to @project, notice: 'Proyecto creado exitosamente.'
     else

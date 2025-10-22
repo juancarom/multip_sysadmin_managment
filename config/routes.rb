@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
-  
+
   # Root
-  root "dashboard#index"
+  root 'dashboard#index'
 
   # Sidekiq Web (solo superadmin)
   authenticate :user, ->(user) { user.superadmin? } do
@@ -26,9 +26,9 @@ Rails.application.routes.draw do
             post :sync
           end
         end
-        resources :users, only: [:index, :create, :destroy]
+        resources :users, only: %i[index create destroy]
       end
-      resources :users, only: [:show, :update]
+      resources :users, only: %i[show update]
     end
   end
 
@@ -40,13 +40,13 @@ Rails.application.routes.draw do
         post :sync
       end
     end
-    resources :users, only: [:index, :create, :destroy], controller: 'project_users'
+    resources :users, only: %i[index create destroy], controller: 'project_users'
   end
 
-  resources :integrations, only: [:index, :show, :edit, :update]
-  resources :users, only: [:show, :edit, :update]
+  resources :integrations, only: %i[index show edit update]
+  resources :users, only: %i[show edit update]
 
   # Health check
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
   get '/health', to: 'application#health'
 end

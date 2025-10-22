@@ -1,7 +1,7 @@
 class IntegrationsController < ApplicationController
-  before_action :set_project, only: [:new, :create]
-  before_action :set_integration, only: [:show, :edit, :update, :destroy, :toggle, :sync]
-  before_action :authorize_integration, only: [:show, :edit, :update, :destroy, :toggle, :sync]
+  before_action :set_project, only: %i[new create]
+  before_action :set_integration, only: %i[show edit update destroy toggle sync]
+  before_action :authorize_integration, only: %i[show edit update destroy toggle sync]
 
   def index
     @integrations = policy_scope(Integration).includes(:project).page(params[:page])
@@ -31,7 +31,7 @@ class IntegrationsController < ApplicationController
 
   def update
     if @integration.update(integration_params)
-      redirect_to project_integration_path(@integration.project, @integration), 
+      redirect_to project_integration_path(@integration.project, @integration),
                   notice: 'Integración actualizada exitosamente.'
     else
       render :edit, status: :unprocessable_entity
@@ -46,7 +46,7 @@ class IntegrationsController < ApplicationController
 
   def toggle
     service = IntegrationService.new(@integration, current_user)
-    
+
     if service.toggle_active!
       status = @integration.active? ? 'activada' : 'desactivada'
       redirect_to project_integration_path(@integration.project, @integration),
@@ -59,7 +59,7 @@ class IntegrationsController < ApplicationController
 
   def sync
     service = IntegrationService.new(@integration, current_user)
-    
+
     if service.sync!
       redirect_to project_integration_path(@integration.project, @integration),
                   notice: 'Sincronización iniciada. Los datos se actualizarán en breve.'
@@ -85,8 +85,8 @@ class IntegrationsController < ApplicationController
 
   def integration_params
     params.require(:integration).permit(
-      :integration_type, 
-      :name, 
+      :integration_type,
+      :name,
       :active,
       settings: {},
       credentials: {}

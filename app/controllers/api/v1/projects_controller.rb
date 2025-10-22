@@ -1,11 +1,11 @@
 module Api
   module V1
     class ProjectsController < BaseController
-      before_action :set_project, only: [:show, :update, :destroy]
+      before_action :set_project, only: %i[show update destroy]
 
       def index
         @projects = policy_scope(Project).includes(:integrations, :users)
-        
+
         render json: @projects.map { |p| project_json(p) }
       end
 
@@ -19,9 +19,7 @@ module Api
         authorize @project
 
         if @project.save
-          unless current_user.superadmin?
-            @project.user_projects.create!(user: current_user, role: :admin)
-          end
+          @project.user_projects.create!(user: current_user, role: :admin) unless current_user.superadmin?
 
           render json: project_json(@project), status: :created
         else

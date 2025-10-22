@@ -1,11 +1,11 @@
 # Seeds para MultiP Sysadmin Management
 # Este archivo crea datos de ejemplo para desarrollo y testing
 
-puts "🌱 Seeding database..."
+puts '🌱 Seeding database...'
 
 # Limpiar datos existentes en desarrollo
 if Rails.env.development?
-  puts "🧹 Limpiando datos existentes..."
+  puts '🧹 Limpiando datos existentes...'
   UserProject.destroy_all
   Integration.destroy_all
   Project.destroy_all
@@ -41,8 +41,8 @@ puts "  ✓ Admin: #{admin2.email}"
 
 users = []
 5.times do |i|
-  user = User.find_or_create_by!(email: "user#{i+1}@example.com") do |u|
-    u.name = "Usuario #{i+1}"
+  user = User.find_or_create_by!(email: "user#{i + 1}@example.com") do |u|
+    u.name = "Usuario #{i + 1}"
     u.password = 'password123'
     u.password_confirmation = 'password123'
     u.role = :user
@@ -56,7 +56,7 @@ AdminUser.find_or_create_by!(email: 'admin@example.com') do |admin|
   admin.password = 'password'
   admin.password_confirmation = 'password'
 end
-puts "  ✓ AdminUser for ActiveAdmin: admin@example.com / password"
+puts '  ✓ AdminUser for ActiveAdmin: admin@example.com / password'
 
 # === PROYECTOS ===
 puts "\n📁 Creando proyectos..."
@@ -255,13 +255,13 @@ puts "  • Integraciones: #{Integration.count} (#{Integration.active.count} act
 puts "  • Asignaciones: #{UserProject.count}"
 
 puts "\n🔑 Credenciales de acceso:"
-puts "  Superadmin: admin@example.com / password123"
-puts "  Admin:      manager@example.com / password123"
-puts "  User:       user1@example.com / password123"
-puts "  ActiveAdmin: admin@example.com / password"
+puts '  Superadmin: admin@example.com / password123'
+puts '  Admin:      manager@example.com / password123'
+puts '  User:       user1@example.com / password123'
+puts '  ActiveAdmin: admin@example.com / password'
 
 puts "\n🌐 URLs:"
-puts "  App:        http://localhost:3000"
-puts "  ActiveAdmin: http://localhost:3000/admin"
-puts "  Sidekiq:    http://localhost:3000/sidekiq"
-puts ""
+puts '  App:        http://localhost:3000'
+puts '  ActiveAdmin: http://localhost:3000/admin'
+puts '  Sidekiq:    http://localhost:3000/sidekiq'
+puts ''

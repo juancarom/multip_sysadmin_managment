@@ -15,10 +15,10 @@ class ProjectUsersController < ApplicationController
     )
 
     if user_project.save
-      redirect_to project_users_path(@project), 
+      redirect_to project_users_path(@project),
                   notice: "#{user.name} agregado al proyecto."
     else
-      redirect_to project_users_path(@project), 
+      redirect_to project_users_path(@project),
                   alert: 'Error al agregar usuario al proyecto.'
     end
   end
@@ -28,7 +28,7 @@ class ProjectUsersController < ApplicationController
     user_name = user_project.user.name
     user_project.destroy
 
-    redirect_to project_users_path(@project), 
+    redirect_to project_users_path(@project),
                 notice: "#{user_name} removido del proyecto."
   end
 

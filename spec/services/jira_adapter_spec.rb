@@ -14,7 +14,7 @@ RSpec.describe IntegrationAdapters::JiraAdapter, type: :service do
 
     it 'returns false for invalid credentials' do
       integration.update!(credentials: { 'access_token' => 'invalid_token' }.to_json)
-      
+
       VCR.use_cassette('jira/test_connection_failure') do
         expect(adapter.test_connection).to be false
       end
@@ -32,7 +32,7 @@ RSpec.describe IntegrationAdapters::JiraAdapter, type: :service do
 
     it 'handles API errors gracefully' do
       integration.update!(credentials: { 'access_token' => 'invalid' }.to_json)
-      
+
       VCR.use_cassette('jira/sync_failure') do
         expect { adapter.sync }.to raise_error(StandardError)
       end
@@ -60,9 +60,9 @@ RSpec.describe IntegrationAdapters::JiraAdapter, type: :service do
     end
 
     it 'raises error when project key is missing' do
-      expect {
+      expect do
         adapter.add_user_to_project('user@example.com')
-      }.to raise_error(StandardError, /Project key not specified/)
+      end.to raise_error(StandardError, /Project key not specified/)
     end
   end
 end
