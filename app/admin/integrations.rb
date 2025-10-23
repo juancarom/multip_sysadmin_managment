@@ -1,4 +1,5 @@
 ActiveAdmin.register Integration do
+  menu label: '🔌 Integraciones', priority: 3
   permit_params :project_id, :integration_type, :name, :active, settings: {}, credentials: {}
 
   scope :all, default: true

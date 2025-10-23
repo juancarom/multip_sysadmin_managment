@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  menu label: '👥 Usuarios', priority: 2
   permit_params :email, :name, :role, :password, :password_confirmation
 
   index do

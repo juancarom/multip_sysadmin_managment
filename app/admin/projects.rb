@@ -1,4 +1,5 @@
 ActiveAdmin.register Project do
+  menu label: '📁 Proyectos', priority: 1
   permit_params :name, :description, :active, settings: {}
 
   index do

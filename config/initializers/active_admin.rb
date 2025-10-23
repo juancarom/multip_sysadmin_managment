@@ -4,12 +4,12 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Multip Sysadmin Managment"
+  config.site_title = 'MultiP Admin'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  # config.site_title_link = "/"
+  config.site_title_link = '/admin'
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
@@ -174,7 +174,7 @@ ActiveAdmin.setup do |config|
   # You can exclude possibly sensitive model attributes from being displayed,
   # added to forms, or exported by default by ActiveAdmin
   #
-  config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
+  config.filter_attributes = %i[encrypted_password password password_confirmation]
 
   # == Localize Date/Time Format
   #
@@ -233,6 +233,10 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
 
+  # Custom theme
+  config.register_stylesheet 'active_admin_custom'
+  config.register_stylesheet 'active_admin_dashboard'
+
   # == CSV options
   #
   # Set the CSV builder separator
@@ -261,6 +265,23 @@ ActiveAdmin.setup do |config|
   #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: "_blank" }
   #     end
   #   end
+
+  # Custom navigation menu - Commented out to avoid sorting issues
+  # config.namespace :admin do |admin|
+  #   admin.build_menu do |menu|
+  #     menu.add label: '📊 Dashboard', url: '/admin', priority: 0
+  #     menu.add label: '📁 Proyectos', url: '/admin/projects', priority: 1
+  #     menu.add label: '👥 Usuarios', url: '/admin/users', priority: 2
+  #     menu.add label: '🔌 Integraciones', url: '/admin/integrations', priority: 3
+  #     menu.add label: '🔐 Administradores', url: '/admin/admin_users', priority: 4
+  #     menu.add label: '💬 Comentarios', url: '/admin/comments', priority: 5
+  #   end
+  #
+  #   admin.build_menu :utility_navigation do |menu|
+  #     menu.add label: '🌐 Ver Sitio', url: '/', html_options: { target: '_blank' }, priority: 1
+  #     admin.add_logout_button_to_menu menu, priority: 10, label: '🚪 Cerrar Sesión'
+  #   end
+  # end
 
   # == Download Links
   #

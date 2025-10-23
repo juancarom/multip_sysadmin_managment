@@ -1,0 +1,423 @@
+/* ================================================
+   MultiP Sysadmin Management - ActiveAdmin Custom Theme
+   ================================================ */
+
+/* === Variables de Color === */
+$primary-color: #2c3e50;
+$secondary-color: #3498db;
+$accent-color: #e74c3c;
+$success-color: #27ae60;
+$warning-color: #f39c12;
+$dark-bg: #1a252f;
+$light-bg: #ecf0f1;
+$text-dark: #2c3e50;
+$text-light: #7f8c8d;
+
+/* === Header / Barra de Navegación === */
+#header {
+  background: linear-gradient(135deg, $primary-color 0%, #34495e 100%);
+  border-bottom: 3px solid $secondary-color;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  height: auto;
+  padding: 0;
+}
+
+#site_title {
+  background: transparent;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 20px 30px;
+  
+  &:before {
+    content: "🚀 ";
+    font-size: 28px;
+  }
+  
+  a {
+    color: #fff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    
+    &:hover {
+      color: #3498db !important;
+      text-decoration: none;
+    }
+  }
+}
+
+/* === Navegación Horizontal === */
+#tabs {
+  background: transparent;
+  border-bottom: none;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  
+  > li {
+    margin: 0 5px;
+    
+    > a {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 5px 5px 0 0;
+      padding: 12px 20px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+    }
+    
+    &.current > a {
+      background: #fff;
+      color: $primary-color;
+      font-weight: 600;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+/* === Utility Navigation (Logout, etc) === */
+#utility_nav {
+  background: transparent;
+  position: absolute;
+  right: 30px;
+  top: 20px;
+  
+  a {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
+
+/* === Title Bar === */
+#title_bar {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  border-bottom: 2px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 25px 30px;
+  
+  h2 {
+    color: $primary-color;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .action_items {
+    a, .button {
+      background: $secondary-color;
+      color: #fff;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-weight: 600;
+      border: none;
+      box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: darken($secondary-color, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(52, 152, 219, 0.4);
+      }
+    }
+  }
+}
+
+/* === Sidebar (cuando existe) === */
+#sidebar {
+  background: #f8f9fa;
+  border-left: 1px solid #e9ecef;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
+  
+  .sidebar_section {
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    
+    h3 {
+      background: $primary-color;
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px 8px 0 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}
+
+/* === Tablas === */
+.index_content table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  thead {
+    background: linear-gradient(135deg, $primary-color 0%, #34495e 100%);
+    
+    th {
+      color: #fff;
+      font-weight: 600;
+      padding: 15px;
+      border: none;
+      
+      a {
+        color: #fff;
+        
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: #f8f9fa;
+        transform: scale(1.01);
+      }
+      
+      &:nth-child(even) {
+        background: #fafbfc;
+      }
+      
+      td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #e9ecef;
+      }
+    }
+  }
+}
+
+/* === Status Badges === */
+.status_tag {
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  display: inline-block;
+  
+  &.yes, &.active, &.completed {
+    background: $success-color;
+    color: #fff;
+  }
+  
+  &.no, &.inactive, &.failed {
+    background: $accent-color;
+    color: #fff;
+  }
+  
+  &.pending, &.in_progress {
+    background: $warning-color;
+    color: #fff;
+  }
+}
+
+/* === Dashboard === */
+.dashboard {
+  .panel {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      transform: translateY(-5px);
+    }
+    
+    h3 {
+      background: linear-gradient(135deg, $primary-color 0%, #34495e 100%);
+      color: #fff;
+      padding: 20px;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .panel_contents {
+      padding: 25px;
+    }
+  }
+  
+  .stat_card {
+    background: linear-gradient(135deg, $secondary-color 0%, #5dade2 100%);
+    color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+    
+    .stat_number {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .stat_label {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.9;
+    }
+  }
+}
+
+/* === Forms === */
+form {
+  .inputs {
+    background: #fff;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  select {
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    
+    &:focus {
+      border-color: $secondary-color;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      outline: none;
+    }
+  }
+  
+  input[type="submit"],
+  button[type="submit"] {
+    background: $success-color;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: darken($success-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+    }
+  }
+}
+
+/* === Filters Sidebar === */
+#filters_sidebar_section {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  
+  h3 {
+    background: $secondary-color;
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px 8px 0 0;
+  }
+}
+
+/* === Breadcrumbs === */
+.breadcrumb {
+  background: transparent;
+  padding: 10px 30px;
+  
+  a {
+    color: $secondary-color;
+    font-weight: 500;
+    
+    &:hover {
+      color: darken($secondary-color, 15%);
+    }
+  }
+}
+
+/* === Pagination === */
+.pagination {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  
+  a, span {
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 0 3px;
+    
+    &.current {
+      background: $secondary-color;
+      color: #fff;
+    }
+  }
+  
+  a:hover {
+    background: lighten($secondary-color, 40%);
+  }
+}
+
+/* === Flash Messages === */
+.flash {
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  &.flash_notice {
+    background: lighten($success-color, 45%);
+    border-left: 4px solid $success-color;
+    color: darken($success-color, 20%);
+  }
+  
+  &.flash_error {
+    background: lighten($accent-color, 40%);
+    border-left: 4px solid $accent-color;
+    color: darken($accent-color, 20%);
+  }
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  #tabs {
+    flex-direction: column;
+    align-items: stretch;
+    
+    > li {
+      margin: 5px 0;
+      
+      > a {
+        border-radius: 5px;
+      }
+    }
+  }
+  
+  #utility_nav {
+    position: static;
+    padding: 10px 15px;
+  }
+}
