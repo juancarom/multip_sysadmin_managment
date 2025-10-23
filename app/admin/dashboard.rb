@@ -40,8 +40,8 @@ ActiveAdmin.register_page 'Dashboard' do
         panel '📁 Proyectos Recientes' do
           table_for Project.order(created_at: :desc).limit(5) do
             column('Nombre') { |p| link_to p.name, admin_project_path(p) }
-            column('Slug') { |p| content_tag(:span, p.slug, class: 'slug-tag status_tag') }
-            column('Estado') { |p| status_tag(p.active? ? 'Activo' : 'Inactivo', p.active? ? 'ok' : 'error') }
+            column('Slug') { |p| p.slug }
+            column('Estado') { |p| p.active? ? 'Activo ✓' : 'Inactivo ✗' }
             column('Integraciones') { |p| p.integrations.count }
             column('Usuarios') { |p| p.users.count }
             column('Creado') { |p| time_ago_in_words(p.created_at) + ' atrás' }
@@ -55,7 +55,7 @@ ActiveAdmin.register_page 'Dashboard' do
             integration_stats = {
               total: Integration.count,
               activas: Integration.active.count,
-              inactivas: Integration.inactive.count,
+              inactivas: Integration.where(active: false).count,
               jira: Integration.where(integration_type: 'jira').count,
               github: Integration.where(integration_type: 'github').count,
               gitlab: Integration.where(integration_type: 'gitlab').count
@@ -67,12 +67,12 @@ ActiveAdmin.register_page 'Dashboard' do
                 span integration_stats[:total]
               end
               li do
-                status_tag 'Activas', 'ok'
-                span " #{integration_stats[:activas]}"
+                strong '✓ Activas: '
+                span integration_stats[:activas]
               end
               li do
-                status_tag 'Inactivas', 'error'
-                span " #{integration_stats[:inactivas]}"
+                strong '✗ Inactivas: '
+                span integration_stats[:inactivas]
               end
               li class: 'divider' do
                 '―――――――――――'
@@ -107,15 +107,15 @@ ActiveAdmin.register_page 'Dashboard' do
 
             ul do
               li do
-                status_tag 'Superadmin', 'error'
+                strong '🔴 Superadmin: '
                 span " #{user_roles[:superadmin]} usuario(s)"
               end
               li do
-                status_tag 'Admin', 'warning'
+                strong '🟡 Admin: '
                 span " #{user_roles[:admin]} usuario(s)"
               end
               li do
-                status_tag 'User', 'ok'
+                strong '🟢 User: '
                 span " #{user_roles[:user]} usuario(s)"
               end
             end
@@ -135,13 +135,13 @@ ActiveAdmin.register_page 'Dashboard' do
               column('Estado') do |i|
                 case i.sync_status
                 when 'completed'
-                  status_tag 'Completado', 'ok'
+                  '✓ Completado'
                 when 'failed'
-                  status_tag 'Fallido', 'error'
+                  '✗ Fallido'
                 when 'in_progress'
-                  status_tag 'En Progreso', 'warning'
+                  '⏳ En Progreso'
                 else
-                  status_tag 'Pendiente', 'default'
+                  '⏸ Pendiente'
                 end
               end
               column('Última Sync') { |i| time_ago_in_words(i.last_sync_at) + ' atrás' }
@@ -180,7 +180,7 @@ ActiveAdmin.register_page 'Dashboard' do
           attributes_table_for nil do
             row('Versión Rails') { Rails.version }
             row('Versión Ruby') { RUBY_VERSION }
-            row('Entorno') { status_tag Rails.env, Rails.env.production? ? 'error' : 'ok' }
+            row('Entorno') { Rails.env.to_s.upcase }
             row('Base de Datos') { ActiveRecord::Base.connection.adapter_name }
             row('Última Actualización') { Time.current.strftime('%d/%m/%Y %H:%M:%S') }
           end

@@ -15,3 +15,90 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+// Custom theme - inline for immediate application
+#header {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+  border-bottom: 3px solid #3498db !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+#site_title {
+  background: transparent !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  padding: 20px 30px !important;
+  
+  a {
+    color: #fff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) !important;
+    
+    &:hover {
+      color: #3498db !important;
+      text-decoration: none !important;
+    }
+  }
+}
+
+#tabs {
+  background: transparent !important;
+  border-bottom: none !important;
+  padding: 0 15px !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  
+  > li {
+    margin: 0 5px !important;
+    
+    > a {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+      border-radius: 5px 5px 0 0 !important;
+      padding: 12px 20px !important;
+      font-weight: 500 !important;
+      transition: all 0.3s ease !important;
+      border: none !important;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: #fff !important;
+        transform: translateY(-2px) !important;
+      }
+    }
+    
+    &.current > a {
+      background: #fff !important;
+      color: #2c3e50 !important;
+      font-weight: 600 !important;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1) !important;
+    }
+  }
+}
+
+#utility_nav {
+  background: transparent !important;
+  position: absolute !important;
+  right: 30px !important;
+  top: 20px !important;
+  
+  a {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+    padding: 8px 15px !important;
+    border-radius: 4px !important;
+    transition: all 0.3s ease !important;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.15) !important;
+      color: #fff !important;
+      text-decoration: none !important;
+    }
+  }
+}
+
+// Custom theme imports (keep for dashboard styles)
+@import "active_admin_custom";
+@import "active_admin_dashboard";

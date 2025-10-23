@@ -233,9 +233,9 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
 
-  # Custom theme
-  config.register_stylesheet 'active_admin_custom'
-  config.register_stylesheet 'active_admin_dashboard'
+  # Custom theme - loaded via @import in active_admin.scss
+  # config.register_stylesheet 'active_admin_custom'
+  # config.register_stylesheet 'active_admin_dashboard'
 
   # == CSV options
   #

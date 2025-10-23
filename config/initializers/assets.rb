@@ -11,5 +11,5 @@ Rails.application.config.assets.version = '1.0'
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
-# ActiveAdmin custom stylesheets
-Rails.application.config.assets.precompile += %w[active_admin_custom.css active_admin_dashboard.css]
+# ActiveAdmin custom stylesheets are loaded via @import in active_admin.scss
+# Rails.application.config.assets.precompile += %w[active_admin_custom.css active_admin_dashboard.css]
